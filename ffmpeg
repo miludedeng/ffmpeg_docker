@@ -13,7 +13,7 @@ declare INPUT_FILENAME
 declare OUTPUT_FILENAME
 
 TAG="latest"
-IMAGE="ffmpeg:$TAG"
+IMAGE="cafetime/ffmpeg:$TAG"
 FFMPEG_OPTIONS="ffmpeg"
 
 FROM_DIR="/opt/from/"
@@ -41,7 +41,7 @@ fi
 
 args=$#
 OUTPUT=${!args}
-if [ "$(echo $OUTPUT | grep \"/\")" == "" ];then
+if [ "echo $OUTPUT | grep /" == "" ];then
 	OUTPUT_DIR=""
 else
 	OUTPUT_DIR=${OUTPUT%/*}
@@ -51,7 +51,7 @@ until [ $# -eq 0 ]
 do
 	if [ "$1" == "-i" ]; then
 		INPUT=$2
-		if [ "$(echo $INPUT | grep \"/\")" == "" ];then
+		if [ "echo $INPUT | grep /" == "" ];then
 			INPUT_DIR=""
 		else
 			INPUT_DIR=${INPUT%/*}
@@ -77,4 +77,3 @@ if [ "" == "$OUTPUT_DIR" ];then
 fi
 echo "docker run --rm $DOCKER_RUN_OPTIONS $DOCKER_ADDR -v $INPUT_DIR:$FROM_DIR -v $OUTPUT_DIR:$TO_DIR -w $FROM_DIR $IMAGE $FFMPEG_OPTIONS"
 exec docker run --rm $DOCKER_RUN_OPTIONS $DOCKER_ADDR -v $INPUT_DIR:$FROM_DIR -v $OUTPUT_DIR:$TO_DIR -w $FROM_DIR $IMAGE $FFMPEG_OPTIONS
-

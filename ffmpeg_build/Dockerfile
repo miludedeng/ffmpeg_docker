@@ -62,4 +62,5 @@ RUN yum -y install gcc gcc-c++ make automake autoconf libtool \
     && ./configure --enable-gpl  --enable-postproc --enable-nonfree --enable-postproc --enable-swscale --enable-avfilter --enable-pthreads --enable-libxvid --enable-libx264 --enable-libmp3lame  --enable-libfaac --enable-libvo-aacenc --enable-version3 \
     && make && make install && ldconfig \
     && rm -rf /opt/source/* \
-    && rm -rf /opt/mpeg4ip.h 
+    && rm -rf /opt/mpeg4ip.h \
+    && yum -y remove gcc gcc-c++ make automake autoconf libtool glibc-devel glibc-headers groff-base kernel-headers libgomp libmpc libstdc++-devel m4 mpfr
