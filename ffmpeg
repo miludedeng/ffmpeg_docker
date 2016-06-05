@@ -45,6 +45,9 @@ if [ "echo $OUTPUT | grep /" == "" ];then
 	OUTPUT_DIR=""
 else
 	OUTPUT_DIR=${OUTPUT%/*}
+	if [[ "$OUTPUT_DIR" != /* ]]; then
+		OUTPUT_DIR=$(cd $OUTPUT_DIR; pwd)
+	fi
 fi
 OUTPUT_FILENAME=${OUTPUT##*/}
 until [ $# -eq 0 ]
@@ -55,6 +58,9 @@ do
 			INPUT_DIR=""
 		else
 			INPUT_DIR=${INPUT%/*}
+			if [[ "$INPUT_DIR" != /* ]]; then
+				INPUT_DIR=$(cd $INPUT_DIR; pwd)
+			fi
 		fi
 		INPUT_FILENAME=${INPUT##*/} 
 		FFMPEG_OPTIONS=$FFMPEG_OPTIONS" "$1" $FROM_DIR$INPUT_FILENAME"
@@ -76,4 +82,4 @@ if [ "" == "$OUTPUT_DIR" ];then
 	OUTPUT_DIR=$(pwd)
 fi
 echo "docker run --rm $DOCKER_RUN_OPTIONS $DOCKER_ADDR -v $INPUT_DIR:$FROM_DIR -v $OUTPUT_DIR:$TO_DIR -w $FROM_DIR $IMAGE $FFMPEG_OPTIONS"
-exec docker run --rm $DOCKER_RUN_OPTIONS $DOCKER_ADDR -v $INPUT_DIR:$FROM_DIR -v $OUTPUT_DIR:$TO_DIR -w $FROM_DIR $IMAGE $FFMPEG_OPTIONS
+#exec docker run --rm $DOCKER_RUN_OPTIONS $DOCKER_ADDR -v $INPUT_DIR:$FROM_DIR -v $OUTPUT_DIR:$TO_DIR -w $FROM_DIR $IMAGE $FFMPEG_OPTIONS
