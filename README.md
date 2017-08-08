@@ -19,4 +19,5 @@ centos7 安装docker
 `docker pull cafetime/ffmpeg`
 
 3、下载ffmpeg脚本，并放入/usr/local/bin
+ 
 4、下载qt-faststart_linux_x64，并放入/usr/local/bin, 重命名为qt-faststart
