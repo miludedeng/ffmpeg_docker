@@ -12,7 +12,7 @@ declare OUTPUT_DIR
 declare INPUT_FILENAME
 declare OUTPUT_FILENAME
 
-TAG="latest"
+TAG="4.2.2"
 IMAGE="cafetime/ffmpeg:$TAG"
 FFMPEG_OPTIONS="ffmpeg"
 
